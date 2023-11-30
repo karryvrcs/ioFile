@@ -5,13 +5,16 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args){  //2. throws IOException
         // File Class does not allow to read or write the file, must acquire a stream.
 
-        File newFile = new File("files/first.txt"); //Relative path or absolute path
+
+        File newFile = new File("./files/second.txt"); //Relative path or absolute path
+        System.out.println(newFile.getAbsoluteFile());
         try {
             boolean fileCreated = newFile.createNewFile();
             if (fileCreated){
@@ -24,8 +27,11 @@ public class Main {
         }
 
         for (File f : File.listRoots()){
-            System.out.println(f);
+            System.out.println("Root Directory: " + f);
         }
+
+        File[] list =  new File("files").listFiles();
+        System.out.println(Arrays.toString(list));
 
 //        boolean fileDeleted = newFile.delete();
 //        if (fileDeleted){
@@ -59,17 +65,27 @@ public class Main {
         if (!file.exists()){
             System.out.println("File does not exist");
             System.out.println("Quitting application, go figure it out");
-            return;
+
         }
         System.out.println("I'm good to go");
 
-        testFile(filename);
+        //testFile(filename);
         // 方法可能会抛出checked Exception异常，要么在方法的catch里面处理好，要么在上层代码中处理
 
         // An unchecked exception is an instance of runtimeException.
         // EXAMPLE: int i = 1/0;
 
 
+        // NIO2
+        System.out.println("-".repeat(20));
+        Path path1 = Paths.get("files/nio.txt");
+
+
+        if (!Files.exists(path1)){
+            System.out.println("NIO File does not exist");
+            System.out.println("NIO Quitting application, go figure it out");
+            return;
+        }
     }
 
 
